@@ -13,13 +13,13 @@ def main():
 
     # 🔹 图片路径处理（跨平台安全）
 
-    image_path = "D:/360Downloads/ultralytics-main/Fracture7.png"
+    image_path = "test.jpg"
 
     # 🔹 初始上下文
     initial_context = {
         "image_path": image_path,
         "image_width_px": 472,
-        "image_height_px": 1422,
+        "image_height_px": 1475,
         "min_points": 100,
         "max_retries": 3,
         "model_parameters": None,
@@ -31,7 +31,7 @@ def main():
         "strategy": "hard-constraint",  # ✅ plan 会引用
         "px_to_m": 0.001,
         "start_depth_m": 4000,
-        "timeout": 120,
+        "timeout": 300,
         "params": None,
         "flags": {"enable_reflection": True},
         "log_fn": None
@@ -46,7 +46,7 @@ def main():
         "max_retries": 5,
         "log_fn": None,
         "log": None,
-        "timeout": 120,
+        "timeout": 300,
         "user_prompt": "全流程裂缝解释、自反思复核与报告生成",
         "sam2_results": "null",
         "params_used": "null",
@@ -56,7 +56,7 @@ def main():
             "window_height_mm": 50.0
         },
         "image_width_px": 472,
-        "image_height_px": 1422,
+        "image_height_px": 1475,
         "start_depth_m": 4000,
         "px_to_m": 0.001
     }
