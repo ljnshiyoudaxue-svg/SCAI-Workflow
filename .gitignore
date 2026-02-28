@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# Model weights
+*.pth
+*.pt
+
+# Images / temp results
+*.png
+*.jpg
+*.jpeg
+temp_workspace_TCA/
+
+# Docs
+*.docx
+
+# Logs
+*.log
