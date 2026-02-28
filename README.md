@@ -28,11 +28,11 @@ The framework relies on several pretrained models. You can download the weights 
 
 | Model                   | Hugging Face Repository                                                                   | Direct Download                                                                                                     |
 | ----------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| UNet Induced Fracture   | [scai-unet-inducedfracture](https://huggingface.co/Lijiangning/scai-unet-inducedfracture) | [Download `.pth`](https://huggingface.co/Lijiangning/scai-unet-inducedfracture/resolve/main/best_epoch_weights.pth) |
-| YOLO Fracture Detection | [scai-yolo](https://huggingface.co/Lijiangning/scai-yolo)                                 | [Download `.pth`](https://huggingface.co/Lijiangning/scai-yolo/resolve/main/best.pt)                 |
-| SAM2 Segmentation       | [scai-sam2](https://huggingface.co/Lijiangning/scai-sam2)                                 | [Download `.pth`](https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_fracture.pt) （https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_induced_fracture.pt）（https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_vug.pt）（https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_small.pt）                |
-| UNet Vug Detection      | [scai-unet-vug](https://huggingface.co/Lijiangning/scai-unet-vug)                         | [Download `.pth`](https://huggingface.co/Lijiangning/scai-unet-vug/resolve/main/best_epoch_weights.pth)             |
-| UNet Fracture Detection | [scai-unet-fracture](https://huggingface.co/Lijiangning/scai-unet-fracture)               | [Download `.pth`](https://huggingface.co/Lijiangning/scai-unet-fracture/resolve/main/best_epoch_weights.pth)        |
+| UNet Induced Fracture   | [scai-unet-inducedfracture](https://huggingface.co/Lijiangning/scai-unet-inducedfracture) | [best_epoch_weights.pth](https://huggingface.co/Lijiangning/scai-unet-inducedfracture/resolve/main/best_epoch_weights.pth) |
+| YOLO Fracture Detection | [scai-yolo](https://huggingface.co/Lijiangning/scai-yolo)                                 | [best.pt](https://huggingface.co/Lijiangning/scai-yolo/resolve/main/best.pt)                                        |
+| SAM2 Segmentation       | [scai-sam2](https://huggingface.co/Lijiangning/scai-sam2)                                 | - [sam2.1_hiera_s_fracture.pt](https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_fracture.pt)  <br> - [sam2.1_hiera_s_induced_fracture.pt](https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_induced_fracture.pt) <br> - [sam2.1_hiera_s_vug.pt](https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_s_vug.pt) <br> - [sam2.1_hiera_small.pt](https://huggingface.co/Lijiangning/scai-sam2/resolve/main/sam2.1_hiera_small.pt) |
+| UNet Vug Detection      | [scai-unet-vug](https://huggingface.co/Lijiangning/scai-unet-vug)                         | [best_epoch_weights.pth](https://huggingface.co/Lijiangning/scai-unet-vug/resolve/main/best_epoch_weights.pth)     |
+| UNet Fracture Detection | [scai-unet-fracture](https://huggingface.co/Lijiangning/scai-unet-fracture)               | [best_epoch_weights.pth](https://huggingface.co/Lijiangning/scai-unet-fracture/resolve/main/best_epoch_weights.pth) |
 
 ### Python Download Example
 
@@ -49,36 +49,62 @@ file_path = hf_hub_download(
 print("Downloaded file path:", file_path)
 ```
 
+
 ## Quick Test
 
-To quickly test the pipeline:
+To quickly test the full pipeline:
 
-1. Run the 6 API scripts located in `SCAI/api` in order.
-2. Run the main pipeline:
+1. Install all dependencies:
 
-```bash
-cd SCAI/main
-python planner_pipeline.py
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Test images are available in the `test` folder.
+2. Install and configure **Ollama** ([https://ollama.com](https://ollama.com))
 
-The pipeline will automatically:
+   Recommended LLM:
 
-* Load the pretrained weights
-* Run segmentation and detection
-* Output results for visualization and analysis
+   ```
+   deepseek-r1:14b or higher
+   ```
 
----
+3. Install and configure the **official YOLO and SAM2 frameworks**.
 
-This setup allows you to quickly reproduce the fracture–vug interpretation workflow using your own micro-resistivity images.
+   ⚠️ **Important**
+   This repository only provides wrapped inference interfaces and pretrained weights.
+   Users must manually install and configure the official YOLO and SAM2 implementations before running the API scripts.
 
-```
+4. Start the six API services under,Run the 6 API scripts located in `SCAI/api` in order.:
 
----
+   ```
+   SCAI/api/
+   ```
 
-💡 说明与建议：  
-1. 所有 Hugging Face 权重链接使用 `resolve/main/<filename>`，这样无论仓库是否更新文件都能保证直接下载最新版本。  
-2. Python 下载示例可以快速嵌入任何脚本中，适合自动化测试。  
-3. README 中明确了快速测试流程，用户只需运行 API 脚本 + `planner_pipeline.py` 即可。  
+   (Run all required API scripts)
+
+5. Then execute:
+
+   ```bash
+   python SCAI/main/planner_pipeline.py
+   ```
+
+6. Test images are provided in:
+
+   ```
+   main/test.jpg
+   ```
+
+
+> Users are required to independently install and configure the official YOLO and SAM2 frameworks. This repository provides only the encapsulated inference interfaces and pretrained model weights, not the original framework implementations.
+
+
+
+Notes and Recommendations:
+
+1. All Hugging Face weight links use the `resolve/main/<filename>` format to ensure that the latest version of the file can always be downloaded directly, even if the repository is updated.
+
+2. The provided Python download examples can be easily embedded into any script, making them suitable for automated testing and deployment.
+
+3. The README clearly describes the quick test workflow. Users must install Ollama independently (recommended model: `deepseek-r1:14b` or higher), as well as properly install and configure the official YOLO and SAM2 frameworks before running the API scripts and `planner_pipeline.py`.
+
 
